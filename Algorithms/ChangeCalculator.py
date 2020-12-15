@@ -14,7 +14,13 @@ Este algoritmo tiene dos partes ya que en ocasiones se calcula mediante voraz y 
 """
 
 from operator import itemgetter
- 
+
+def print_change(change,coins):
+    i=0
+    for c in change:
+        if c>0:
+            print(f'{c} coins of {coins[i]}')
+        i+=1
 
 coins = [1,2,4,8]
 amount = 61
@@ -27,12 +33,12 @@ for coin in coins:
     if amount>=0:
         back.append(amount//coin)
         amount %= coin
-        print(back)
-        print(amount)
+        
+
+print_change(back,coins)
 
 
-
-
+print('-'*50,'\n')
 
 
 # Another voraz implements 
@@ -54,27 +60,34 @@ for text,coin in coins:
         print('Remainig Amount ',amount)
 
 
+print('-'*50,'\n')
 
-#dinamica
+
+#dynamic
+# non-classical dynamic implementation without matrix
 
 coins = [10,6,1]
 amount = 24
-backs = [[0]*len(coins) for c in coins] #fill matrix with 0s
+best_back = [0]*len(coins) #fill matrix with 0s
 
-print(backs)
 
 for i in range(len(coins)): 
     loop_amount = amount
+    loop_back = [0]*len(coins)
     for j in range(i,len(coins)):
         if loop_amount>0:
             coin = coins[j]
-            backs[i][j] = loop_amount//coin
+            loop_back[j] = loop_amount//coin
             loop_amount %= coin
 
+    
+    if sum(loop_back)<sum(best_back) or sum(best_back)==0:
+        best_back = loop_back
    
-   
-print(backs)
-
 # just print result
-# for b in backs:
-    #print(f'{coins[1]} coins of {coins[0]}')
+print_change(best_back,coins)
+
+
+
+print('-'*50,'\n')
+
