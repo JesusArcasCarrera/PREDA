@@ -1,5 +1,5 @@
 """ 
-Cash Register
+Change Calculator
 Calcular la vuelta
 
 @familia 
@@ -54,4 +54,27 @@ for text,coin in coins:
         print('Remainig Amount ',amount)
 
 
-        
+
+#dinamica
+
+coins = [10,6,1]
+amount = 24
+backs = [[0]*len(coins) for c in coins] #fill matrix with 0s
+
+print(backs)
+
+for i in range(len(coins)): 
+    loop_amount = amount
+    for j in range(i,len(coins)):
+        if loop_amount>0:
+            coin = coins[j]
+            backs[i][j] = loop_amount//coin
+            loop_amount %= coin
+
+   
+   
+print(backs)
+
+# just print result
+# for b in backs:
+    #print(f'{coins[1]} coins of {coins[0]}')
