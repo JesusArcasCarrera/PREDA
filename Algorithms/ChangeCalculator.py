@@ -91,3 +91,31 @@ print_change(best_back,coins)
 
 print('-'*50,'\n')
 
+#recursive
+
+coins = [10,6,1]
+amount = 24
+best_back = [0]*len(coins) #fill matrix with 0s
+
+
+def change(ind,coins,amount,best_back):
+    print(best_back)
+    if ind<len(coins):
+        loop_amount = amount
+        loop_back = [0]*len(coins)
+        for j in range(ind,len(coins)):
+            if loop_amount>0:
+                coin = coins[j]
+                loop_back[j] = loop_amount//coin
+                loop_amount %= coin
+
+        if sum(loop_back)<sum(best_back) or sum(best_back)==0:
+            best_back = loop_back
+
+        return change(ind+1,coins, amount,best_back)
+    else:
+        return best_back
+
+best_back = change(0,coins, amount,best_back)
+# just print result
+print_change(best_back,coins)
