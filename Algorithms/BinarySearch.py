@@ -9,15 +9,13 @@ divide y venceras
 solo busca si un elemento esta o no arbol binario
 
 """
-import argparse
-
 def binary_search(vector,target, positions = None):
     if positions is None:
          positions = (0, len(vector))
        
     
     i , j = positions
-    print(positions)
+
     if i != j:
 
         half = sum(positions)//2
@@ -33,22 +31,24 @@ def binary_search(vector,target, positions = None):
     else:
         return (vector[i]==target)
 
-""" 
-#if you don't want two return
-
-if i != j:
-.
-.
-.
-result = binary_search(new_positions,vector,target) 
-
-else:
-    result = (vector[i]==target)
-
-return result
 
 
-    """
+""" Another """
+def busqueda_binaria(i,j,vector,target):
+    
+    if i==j:
+        if vector[i]==target:
+            return True
+        else:
+            return False
+    else:
+        m=(i+j)//2
+        if vector[m]<=target:
+            return busqueda_binaria(i,m,vector,target)
+        else:
+            return busqueda_binaria(m+1,j,vector,target)
+
+
 #TODO 
 if __name__ == "__main__":
     v = [1,2,3,4,6,7,8,9,15]
