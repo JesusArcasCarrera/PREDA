@@ -57,3 +57,26 @@ def napsack(elements, capacity):
     return solution
 
 
+
+""" recursive voraz implementation"""
+def rNapsack(elements, capacity):
+    index = list(range(len(elements)))
+    elems = zip(elements, index)
+    relation = [(r[1]/r[0],i,r[0]) for r,i in elems]
+    relation.sort(reverse=True)
+    solution = recursiveNapsack(relation,(capacity,0))
+    print(solution)
+
+def recursiveNapsack(elements, capacity):
+   
+    element = elements.pop(0)
+    free = capacity[0]-capacity[1]
+
+    if element[2] < free:
+        capacity[1] += element[2]
+        return recursiveNapsack(elements,capacity).append((element[1],1))
+    else:
+        percent = (free/element[2])
+        return [(element[1],percent)]
+
+
