@@ -67,7 +67,7 @@ for text,coin in coins:
 print('-'*50,'\n')
 
 
-""" Dynamic; non-classical dynamic implementation without matrix """
+""" Another implementation; not sure what family is"""
 
 coins = [10,6,1]
 amount = 24
@@ -83,7 +83,6 @@ for i in range(len(coins)):
             loop_back[j] = loop_amount//coin
             loop_amount %= coin
 
-    
     if sum(loop_back)<sum(best_back) or sum(best_back)==0:
         best_back = loop_back
    
