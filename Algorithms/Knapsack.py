@@ -14,7 +14,8 @@ Empezare resolviendo la forma simple, con una unica mochila, con planteamiento v
 Observar que si la suma de los pesos es menor o igual que la capacidad de la mochila, el problema es trivial
 Asi que interesa resolver cuando la suma es mayor que la capacidad de la mochila 
 
-Adicionalmente, en algunas implementaciones los objetos seran fraccionables
+Adicionalmente, en algunas implementaciones los objetos seran fraccionables (voraz)
+Mientras que en dinamica podremos resolverlo para objetos no fraccionables
 
 """
 
@@ -64,19 +65,22 @@ def rNapsack(elements, capacity):
     elems = zip(elements, index)
     relation = [(r[1]/r[0],i,r[0]) for r,i in elems]
     relation.sort(reverse=True)
-    solution = recursiveNapsack(relation,(capacity,0))
+    solution = recursive_napsack(relation,(capacity,0))
     print(solution)
 
-def recursiveNapsack(elements, capacity):
+def recursive_napsack(elements, capacity):
    
     element = elements.pop(0)
     free = capacity[0]-capacity[1]
 
     if element[2] < free:
         capacity[1] += element[2]
-        return recursiveNapsack(elements,capacity).append((element[1],1))
+        return recursive_napsack(elements,capacity).append((element[1],1))
     else:
         percent = (free/element[2])
         return [(element[1],percent)]
 
 
+
+""" Dynamic solution """
+#    elements -> [(weight, value)]
