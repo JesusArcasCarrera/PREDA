@@ -1,24 +1,25 @@
 class NodeGraph: 
-    edges = {}
+    edges = set()
     
     # edges is a tuple, (other_node,'u|d|b',weigth)
     #u is undirected, d is directed, b is bidirectional
     def __init__(self,edges):
-        self.edges = edges
+        for edge in edges:
+            self.edges.add(edge)
 
-    def addEdge(self,edge):
+    def add_edge(self,edge):
         if edge[1] is None or edge[1] not in ['u','d','b']:
             raise ValueError('direction must be "u|d|b"')           
         self.edges.add(edge)
 
-    def removeEdge(self,edge):
+    def remove_edge(self,edge):
         self.edges.discard(edge) 
 
-    def removeNode(self,node):
-        self.edges.discard(self.getEdge(node))
+    def remove_node(self,node):
+        self.edges.discard(self.get_edge(node))
 
-    def setEdge(self,node,direction=None,weight=None):
-        edge = self.getEdge(node)
+    def set_edge(self,node,direction=None,weight=None):
+        edge = self.get_edge(node)
         if direction is not None and direction in ['u','d','b']:
             edge[1]=direction
         else:
@@ -26,17 +27,17 @@ class NodeGraph:
         if weight is not None:
             edge[2]=weight
     
-    def getEdges(self):
+    def get_edges(self):
         return self.edges
     
-    def getEdge(self,node):
+    def get_edge(self,node):
         return  [e for e in self.edges if e[0] is node]
 
-    def getByDirect(self,direction):
+    def get_by_direct(self,direction):
         direction.lower()
         return [e for e in self.edges if e[1]==direction]
     
-    def getByWeight(self,weight,op = 'equal'):
+    def get_by_weight(self,weight,op = 'equal'):
         ops = {
             'equal':lambda x:x==weight,
             'gretter':lambda x:x>weight,
@@ -44,11 +45,11 @@ class NodeGraph:
         }
         return [e for e in self.edges if ops[op](e[2])]
 
-    def filterEdges(self, f):
+    def filter_edges(self, f):
         return [e for e in self.edges if f(e)]
     
     def stay(self,edge):
         return self.edges.issuperset({edge})
 
-    def stayNode(self,node):
-        return self.stay(self.getEdge(node))    
+    def stay_node(self,node):
+        return self.stay(self.get_edge(node))    
